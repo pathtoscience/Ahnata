@@ -1,0 +1,12 @@
+{% extends 'ahnata/base.html' %}
+
+{% block title %} Details de l'article {% endblock %}
+{% block body %}
+    <h1>{{ boutique.nom }}</h1>	
+      <p>detenu par  
+   <ul><h4>{{ boutique.stock_gerant }}</h4>
+       <h4>Créer le {{ boutique.date_create|date:"DATE_FORMAT" }}</h4>
+       <h4>{{ boutique.categorie|linebreaks }}</h4>
+   </ul>
+       <p><a href="{% url 'ahnata:detail' boutique.id %}">lire la suite </a></p>
+{% endblock %}

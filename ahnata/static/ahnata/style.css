@@ -1,0 +1,79 @@
+body{
+	background: white rgb(255,0,0,0.5); 
+}
+#slog{
+	position: absolute;
+	left: 225px;
+	top: 60px;
+	font-style: italic;
+	font-size: x-small;
+}
+.navbar{
+	border-radius: 0;
+}
+.navbar-brand{
+	font-family: 'Satisfy', cursive;
+}
+.connect{
+	position: absolute; 
+	right: 90px;
+	top: 30px;
+}
+.inscript{
+	position: absolute; 
+	right: 250px;
+	top: 30px;
+}
+article, aside
+{
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+}
+article{
+	width: 625px;
+	margin-right: 15px;
+	height: 425px;
+}
+article h4,p{
+color: black;;
+} 
+article h2{
+text-align: center;
+}
+.pres{
+	text-align: center
+}
+aside{
+  background-color: #F5F5F5;	
+  position: absolute;
+  right: 20px;
+}
+.descp, #logo{
+	text-align: center;
+}
+#logo img{
+	border: 1px solid #181818;
+}
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: #2F4F4F;
+   color: white;
+   text-align: center;
+}
+
+.footer p {
+    flex: 1;
+    margin: 0;
+}
+.foot {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}

@@ -1,0 +1,22 @@
+{% extends 'ahnata/base_visit.html' %}
+{% block body %}
+  <div class="panel-body">
+        <h3>Creer un Nouveau Compte</h3>
+            {% if error_message %}
+            <p><strong>{{ error_message }}</strong></p>
+            {% endif %}
+        <form class="form-control" role="form" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% include 'ahnata/template_form.html' %}
+            <div class="form-group">
+               <div class="col-sm-offset-2 col-sm-10">
+                   <button type="submit" class="btn btn-success">Envoyez</button>
+               </div>
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer">
+         Avez-vous dejà un compte? <a href="{% url 'ahnata:contact' %}">Cliquez ici</a> pour vous connectez.
+    </div>
+{% endblock %}
+
