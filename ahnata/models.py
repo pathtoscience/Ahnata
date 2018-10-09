@@ -5,39 +5,48 @@ from django.utils.text import Truncator
 from django.urls import reverse 
 
 # Create your models here.
-class Categorie(models.Model):
-
-    nom = models.CharField(max_length=30)
+class Category(models.Model):
+    nom = models.CharField(max_length=50, db_index=True)
+    slug = models.SlugField(max_length=50, db_index=True, unique=True)
 
     def __str__(self):
+        return self.nom    
 
-        return self.nom
+    def get_absolute_url(self):
+        return reverse('ahnata:article_list_by_category', args=[self.slug])
 
 class Boutique(models.Model):
     """docstring for ClassName"""
     nom = models.CharField(max_length=25)
     stock_gerant = models.CharField(max_length=30)
-    categorie = models.ForeignKey('Categorie', on_delete=models.CASCADE)
+    categorie = models.ForeignKey('Category', on_delete=models.CASCADE)
     date_create = models.DateTimeField(default=timezone.now, verbose_name="date d'ajout")
   
-    def get_absolute_url(sel):
+    def get_absolute_url(self):
         return reverse('ahnata:detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.nom + ' - ' + self.stock_gerant   
 
-class Article(models.Model):
+class Articles(models.Model):
     """docstring for ClassName"""
-    nom = models.CharField(max_length=25)
+    category = models.ForeignKey('Category',on_delete=models.CASCADE)
+    nom = models.CharField(max_length=45, db_index=True)
+    slug = models.SlugField(max_length=45, db_index=True)
     prix = models.FloatField()
-    description = models.CharField(max_length=30)
-    categorie = models.ForeignKey('Categorie', on_delete=models.CASCADE)
-    article_logo = models.CharField(max_length=1000)
+    description = models.CharField(max_length=100)
+    article_logo = models.ImageField(upload_to='ahnata/%Y/%m/%d', blank=True)
+    stock = models.PositiveIntegerField()
+    disponible = models.BooleanField(default=True)
     date_ajout = models.DateTimeField(default=timezone.now, verbose_name="date d'ajout")
-
+    date_modif = models.DateTimeField(default=timezone.now, verbose_name="date de modification")
+   
+    def get_absolute_url(self):
+        return reverse('ahnata:detail_art', kwargs={'pk': self.pk})
+ 
     def __str__(self):
         return self.nom   
-
+    
 class Clients(models.Model):
     
     nom = models.CharField(max_length=25)
@@ -48,11 +57,13 @@ class Clients(models.Model):
     def __str__(self):
         
         return self.nom
+
 class Produit(models.Model):
-    nom = models.CharField(max_length=30)
-    
+    nom = models.CharField(max_length=30, db_index=True)  
+   
     def __str__(self):
         return self.nom    
+   
 
 class Vendeurs(models.Model):
     
@@ -97,69 +108,19 @@ class Transaction(models.Model):
                 		        
     def __str__(self):
                     		        	
-        return self.c_id        		        		                		        
+        return self.c_id 
 
-class BoutiqueAdmin(admin.ModelAdmin):
-    list_display = ('nom','stock_gerant','categorie')
-    list_filter = ('stock_gerant','date_create')
-    date_hierarchy = 'date_create'
-    ordering = ('date_create',)
-    search_fields = ('nom', 'categorie') 
+class Post(models.Model):
+    auteur = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    titre = models.CharField(max_length=200)
+    texte = models.TextField()
+    date_creation = models.DateTimeField(default=timezone.now)
+    date_publication = models.DateTimeField(blank=True, null=True)
 
-        # Configuration du formulaire d'édition
-    fieldsets = (
+    def publish(self):
+        self.date_publication = timezone.now()
+        self.save()
 
-        # Fieldset 1 : meta-info (titre, auteur…)
-
-       ('Général', {
-
-            'classes': ['collapse', ],
-
-            'fields': ('nom','stock_gerant')
-
-        }),
-
-        # Fieldset 2 : contenu de l'article
-
-        ('Contenu de la Boutique', {
-
-           'description': 'Le formulaire accepte les balises HTML. Utilisez-les à bon escient !',
-
-           'fields': ('categorie', )
-
-        }),
-
-    )
-
-    # Colonnes personnalisées 
-
-    def apercu_descrip(self, article):
-
-        """ 
-        Retourne les 40 premiers caractères du contenu de l'article. S'il
-
-        y a plus de 40 caractères, il faut rajouter des points de suspension.
-
-        """
-        text = article.categorie[0:7]
-
-        if len(article.categorie) > 7:
-
-            return '%s…' % text
-
-        else:
-
-            return text
-
-    apercu_descrip.short_description = 'aperçu du contenu'  
+    def __str__(self):
+        return self.titre
         
-    """ def apercu_descrip(self, article):
-
-        return Truncator(article.categorie).chars(5, truncate='')
-
-    # En-tête de notre colonne
-
-    apercu_descrip.short_description = 'categorie'  """       
-        
-                                      
-                        		

@@ -1,5 +1,10 @@
 body{
 	background: white rgb(255,0,0,0.5); 
+	position: relative;
+	margin: 0;
+	padding-bottom: 6rem;
+	min-height: 100%;
+	font-family: "Helvetica Neue", Arial, sans-serif;
 }
 #slog{
 	position: absolute;
@@ -38,11 +43,8 @@ article{
 article h4,p{
 color: black;;
 } 
-article h2{
+article h2, .pres{
 text-align: center;
-}
-.pres{
-	text-align: center
 }
 aside{
   background-color: #F5F5F5;	
@@ -56,13 +58,14 @@ aside{
 	border: 1px solid #181818;
 }
 .footer {
-   position: fixed;
-   left: 0;
+   position: absolute;
+   right: 0;
    bottom: 0;
-   width: 100%;
-   background-color: #2F4F4F;
-   color: white;
+   left: 0;
+   padding: 1rem;
+   background-color: #F5F5F5;
    text-align: center;
+   color: black;
 }
 
 .footer p {
@@ -76,4 +79,13 @@ aside{
     margin: 0;
     padding-left: 0;
     list-style: none;
+}
+.boutiq1 {
+float: left;
+width: 150px;
+border: 1px solid black;
+}
+.detboutiq{
+ margin-left: 170px;
+ border: 1px solid blue;
 }

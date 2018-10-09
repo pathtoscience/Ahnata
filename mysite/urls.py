@@ -15,14 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import include, url
-
-
-from polls import views 
-from ahnata import views
+from django.conf import settings 
+from django.conf.urls.static import static 
+from django.views.generic.base import TemplateView
  
-
+from ahnata import views
+from herico import views
+ 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^polls/', include('polls.urls')),
-    url(r'^ahnata/', include('ahnata.urls')),  
+    url(r'^herico/', include('herico.urls')),
+    url(r'^ahnata/', include('ahnata.urls')), 
+    url(r'^ahnata/', include('django.contrib.auth.urls')),  
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

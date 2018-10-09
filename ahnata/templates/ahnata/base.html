@@ -1,7 +1,8 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
-  	<title>Page d'accueil</title>
+  	<title>{% block title %}Page d'accueil {% endblock %} </title>
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
@@ -23,11 +24,11 @@
 	  <meta charset="utf-8">
 	  <meta name="viewmport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- load the path to your static files -->
-    {% load static %}
     <link rel="icon" href="{% static 'ahnata/favico/favicon.ico' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'ahnata/css/bootstrap.min.css' %}" />
     <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'/>
     <link rel="stylesheet" type="text/css" href="{% static 'ahnata/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ahnata/css/album.css' %}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script type="text/javascript" src="{% static 'ahnata/js/bootstrap.min.js' %}"></script>
 </head>
@@ -37,10 +38,14 @@
     <img src="{% static 'ahnata/images/nata6.png' %}" alt="mon logo">
     <p id="slog">Faire Mieux que tous</p>
   </div>
-  <nav>
-     <ul class="inscript"><a href="{% url 'ahnata:register'  %} "><button type="button" class="btn">SE CONNECTER </button></a>
-     </ul>
-  </nav>
+  {% if user.is_authenticated %}
+     <p style="color: blue; position: relative; text-align: center; margin-top: 0px;">Hi {{user.username}} !</p>
+    <nav>
+     <ul class="inscript"><a href="{% url 'ahnata:logout' %}"><button type="button" class="btn">SE DECONNECTER</button></a></ul></nav>
+  {% else %}
+    <nav>
+     <ul class="inscript"><a href="{% url 'ahnata:login' %}"><button type="button" class="btn">SE CONNECTER</button></a></ul></nav>
+  {% endif %}   
   <nav>
      <ul class="connect"><a href="{% url 'ahnata:contact'  %} "><button type="button" class="btn btn-info">ECRIVEZ-NOUS !</button></a>
      </ul>
@@ -53,21 +58,14 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-       <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-      Boutiques
-    </button>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item active" href="{% url 'ahnata:index' %}">Boutique 1</a>
-          <a class="dropdown-item" href="{% url 'ahnata:index' %}">Boutique 2</a>
-          <a class="dropdown-item" href="{% url 'ahnata:index' %}">Boutique 3</a>
-        </div>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="{% url 'ahnata:articles' %}">Produits</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="{% url 'ahnata:index' %}">Qui Sommes-Nous ?</a>
+        <a class="nav-link disabled" href="{% url 'ahnata:descript' %}">Qui Sommes-Nous ?</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="{% url 'ahnata:index' %}">Blog</a>
+        <a class="nav-link disabled" href="{% url 'ahnata:post' %}">Notre Forum</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -89,7 +87,7 @@
 
   <!-- The slideshow -->
      <div class="carousel-inner">
-       <div class="carousel-item active"><img src="{% static 'ahnata/images/stab1.jpg' %}" class="img-thumbnail" alt="Los Angeles" />
+       <div class="carousel-item active"><img src="{% static 'ahnata/images/prise.png' %}" class="img-thumbnail" alt="Los Angeles" />
         <div class="carousel-caption">
             <h4>Stabilisateur</h4>
               <p>Les ampoules, element incontournable du courant qui vous empechez de vous perdre la nuit .</p>
@@ -117,8 +115,10 @@
       <span class="carousel-control-next-icon"></span>
      </a>
  </div>
+<main>
  {% block body %}
-{% endblock %}
+ {% endblock %}
+</main>
 </article>  
   <aside>
      <h2 class="present">A PROPOS DE L'AUTEUR</h2>
@@ -130,15 +130,24 @@ src="{% static 'ahnata/images/vimeo.png' %}" alt="Vimeo" /><img src="{% static '
 alt="Flickr" /><img src="{% static 'ahnata/images/rss.png' %}" alt="RSS" /></p>
   </aside>
 </section>
+
 <footer>
- <div class="footer">
-  <p>&copy; 2017-2018 Totobhe Etoile</p>
-  <ul class="foot">
-     <li>Terms</li>
-     <li>Blog</li>
-     <li>About</li>
-  </ul>
-</div>
+  <div class="footer">
+    <p>&copy; 2017-2018 Totobhe Etoile</p>
+    <ul class="foot">
+       <li>Pays<br><p>Guinée Conakry</p></li>
+       <li>Ville<br><p>Conakry</p></li>
+       <li>adresse<br><p>Marché Madina au CCF, boutique N°35</p></li>
+    </ul>
+  </div>
 </footer>
+ <!-- Bootstrap core JavaScript
+    ================================================== -->
+ <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/vendor/holder.min.js"></script>
 </body>
 </html>

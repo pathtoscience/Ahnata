@@ -1,42 +1,52 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login 
 from django.views import generic
-from django.core.mail import send_mail
+from django.core.mail import send_mail, BadHeaderError
 from django.views.generic import View, TemplateView
+from django.http import HttpResponse, HttpResponseRedirect
 
 from django import forms
-from .models import Boutique, Article
-from .forms import UserForm, ContactForm
+from .models import Boutique, Articles, Category
+from .forms import signUpForm, ContactForm, LoginForm, PostForm
+
 # Create your views here.
 class IndexView(generic.ListView):
     template_name = 'ahnata/index.html'
+
+    def get_queryset(self):
+        #return all boutiques 
+        return Boutique.objects.all() 
+
+# Create your views here.
+class LayoutView(generic.ListView):
+    template_name = 'ahnata/layout.html'
     context_object_name = 'all_boutiques'
 
     def get_queryset(self):
-        #return all articles 
-        return Boutique.objects.all() 
+        #return all boutiques 
+        return Boutique.objects.all()        
 
-class DetailView(generic.DetailView):
-    """affciher un article au complet"""	
-    model = Boutique
-    template_name = 'ahnata/detail.html'     	
+class ArticlelistView(generic.ListView):
+    template_name = 'ahnata/list.html'
+    context_object_name = 'all_articles'
+    
+    def get_queryset(self):
+        return Articles.objects.all()
 
-class BoutiqueCreate(CreateView):
-    model =Boutique
-    fields = ['nom', 'prix', 'description', 'categorie']
+class DetailArticleView(generic.DetailView):
+    """affciher un article au complet"""    
+    model = Articles
+    template_name = 'ahnata/detail_art.html'      
 
-class BoutiqueUpdate(UpdateView):
-    model = Boutique
-    fields = ['nom', 'prix', 'description', 'categorie']
-        
-class BoutiqueDelete(DeleteView):
-    model = Boutique
-    success_url = reverse_lazy('ahnata:index')
+class DescripView(TemplateView):
+    """affciher une Boutique au complet"""	
+    template_name = 'ahnata/descript.html'     	  
 
-class UserFormView(View):
-    form_class = UserForm
+class signUpFormView(View):
+    form_class = signUpForm
     template_name = 'ahnata/register.html' 
     # display blank form
     def get(self, request):
@@ -65,17 +75,15 @@ class UserFormView(View):
                 if user.is_active:
                     login(request, user)
                     return redirect('ahnata:index')     
+        return render(request, self.template_name, {'form': form})   
 
-        return render(request, self.template_name, {'form': form})
 
-class ContactView(TemplateView):
+def emailView(request):
     template_name = 'ahnata/contact.html'
     
-    def get(self, request):
+    if request.method =='GET':
         form = ContactForm()
-        return render(request, self.template_name, {'form':form})
-        
-    def post(self, request):
+    else:    
         form = ContactForm(request.POST)
         if form.is_valid():
 
@@ -83,18 +91,37 @@ class ContactView(TemplateView):
             sujet = form.cleaned_data['sujet']
             emailAdress = form.cleaned_data['emailAdress']
             message = form.cleaned_data['message']
-            cc_myself = form.cleaned_data['cc_myself']
+            
+            receveur = ['foulaly2018@gmail.com']
+            if sujet and message and emailAdress:
+                try:
+                    send_mail(sujet, message, emailAdress, 
+                        receveur,fail_silently=False,)
+                except BadHeaderError :
+                    return HttpResponse('Invalid header found')
+                return redirect('ahnata:success')
+            else:
+                return HttpResponse('make sure all fields are entered and valid')   
+                   
+    return render(request, template_name, {'form':form})
 
-            receveur = [foulaly2018@gmail.com]
-            if cc_myself:
-                receveur.append(emailAdress)
+def successView(request):
+    return render(request,'ahnata/success.html')
 
-            send_mail(sujet, emailAdress, message, receveur)    
-            #returns user objects if credentials are correct
-            envoi=True
-            form = ContactForm()
-            return redirect('ahnata:index')   
-                  
-        args = {'form': form, 'text':text}
-        return render(request, self.template_name, args)
+def post_new(request):
+    template_name = 'ahnata/post_edit.html'
 
+    if request.method == 'GET':
+        form = PostForm()
+    else:
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            try:
+                post.auteur = request.user
+            except BadHeaderError :
+                return HttpResponse('Vous devez etre connecter')
+            post.date_publication = timezone.now()
+            post.save() 
+            return redirect('ahnata:detail_art', pk=post.pk)      
+    return render(request, template_name, {'form': form})    

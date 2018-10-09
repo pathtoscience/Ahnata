@@ -1,6 +1,6 @@
 {% extends 'ahnata/base_visit.html' %}
 {% block body %}
-  <div class="panel-body">
+    <div class="panel-body">
         <h3>Creer un Nouveau Compte</h3>
             {% if error_message %}
             <p><strong>{{ error_message }}</strong></p>
@@ -16,7 +16,7 @@
         </form>
     </div>
     <div class="panel-footer">
-         Avez-vous dejà un compte? <a href="{% url 'ahnata:contact' %}">Cliquez ici</a> pour vous connectez.
+         Avez-vous dejà un compte? <a href="{% url 'ahnata:login' %}">Cliquez ici</a> pour vous connectez.
     </div>
 {% endblock %}
 

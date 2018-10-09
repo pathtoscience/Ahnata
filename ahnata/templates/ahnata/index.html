@@ -1,16 +1,6 @@
 {% extends 'ahnata/base.html' %}
-
 {% block body %}
-   {% if all_boutiques %}
       <h2>Faire Mieux Que Les Autres</h2>
-      <p class="pres">Chez Torobhe Etoile, notre philosophie est de "<strong>faire mieux que les autres</strong>".<br/> Nous nous différencions en utilisant les technologies et l'information à notre disposition pour améliorer nos processus internes et offrir de meilleures solutions technologiques et cela à moindre coût.</p>
-      <h3>Here all the stock:</h3>
-      <ul>{% for boutique in all_boutiques %}
-         <li><a href="{% url 'ahnata:detail' boutique.id %}">{{boutique.nom}}</a></li>
-         {% endfor %}
-     </ul>
-   {% else %}	
-       <h3>No stock to display </h3>
-   {% endif %}
+      <p class="pres">Chez Torobhe Etoile, notre Slogan est,"<strong>faire mieux que les autres</strong>".<br/> Nous nous demarquons des autes par notre utilisation  des technologies recentes à notre disposition pour améliorer nos processus internes et offrir de meilleures solutions technologiques et cela à moindre coût.</p>
    
 {% endblock %}

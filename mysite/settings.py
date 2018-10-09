@@ -31,14 +31,15 @@ ALLOWED_HOSTS = ['localhost']
 # Application definition
 
 INSTALLED_APPS = [
-    'polls.apps.PollsConfig',
     'ahnata.apps.AhnataConfig',
+    'herico.apps.HericoConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,12 +126,18 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 #accounts
-LOGIN_REDIRECT_URL = 'index'
-
-EMAIL_HOST = 'smtp.hushmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'foulaly2018@gmail.com'
-#EMAIL_USE_TLS = True
+LOGIN_REDIRECT_URL = 'ahnata:index'
+#email_send parameters
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'foulaly2018@gmail.com'
+EMAIL_HOST_PASSWORD = '1ngoditrust'
+DEFAULT_FROM_EMAIL = 'lymamadoupathe92@localhost'
+ 
