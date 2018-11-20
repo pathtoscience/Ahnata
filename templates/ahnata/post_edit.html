@@ -1,0 +1,14 @@
+{% extends 'ahnata/base_visit.html' %}
+
+{% block body %}
+
+    <h2 style="text-align: center;">Nouveau Message</h2>
+    <p style="text-align: center;">Dites nous, ainsi qu'aux autres abonnés du site, votre aprehension par rapport aux produits que nous offrons ! </p>
+    <form method="POST" class="form-control" action="{% url 'ahnata:post' %}">
+      {% csrf_token %}
+        {{ form.as_p }}
+       <input type="submit" class="btn btn-primary" value="Envoyez" />
+    </form>
+    <h2>{{ text }}</h2>
+   
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'ahnata/base_visit.html' %}
+
+{% block title %}au revoir!{% endblock %}
+
+{% block body %}
+  <p style="color: green; margin-left: 400px; margin-top: 10px">vous etes deconnectez avec succés
+ <a href="{% url 'ahnata:login' %}">cliquez ici pour vous reconnecter !</a></p>
+{% endblock %}

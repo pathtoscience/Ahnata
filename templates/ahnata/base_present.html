@@ -1,0 +1,83 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  	<title>{% block title %}Page d'accueil {% endblock %} </title>
+    <!-- load the path to your static files -->
+    
+    <link rel="icon" href="{% static 'ahnata/favico/favicon.ico' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ahnata/bootstrap4/bootstrap.min.css' %}" />
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" type="text/css" href="{% static 'ahnata/styles/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ahnata/styles/album.css' %}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'ahnata/js/bootstrap.min.js' %}"></script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+      <div>
+        <img src="{% static 'ahnata/images/nata6.png' %}" alt="mon logo">
+        <p id="slog">Faire Mieux que tous</p>
+      </div>  
+        <div id="header">
+        {% if user.is_authenticated %}
+          <p style="color: green; position: absolute; margin-left: 600px; top: 0px; margin-top: 0;">Hi {{user.username}} !</p>
+          <nav>
+            <ul class="inscript"><a href="{% url 'ahnata:logout' %}"><button type="button" class="btn">SE DECONNECTER</button></a></ul></nav>
+            {% else %}
+          <nav>
+            <ul class="inscript"><a href="{% url 'ahnata:login' %}"><button type="button" class="btn">SE CONNECTER</button></a></ul></nav>
+            {% endif %}   
+          <nav>
+            <ul class="connect"><a href="{% url 'ahnata:contact'  %} "><button type="button" class="btn btn-info">ECRIVEZ-NOUS !</button></a>
+            </ul>
+          </nav>
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'ahnata:index' %}">Accueil</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                 <a class="nav-link disabled" href="{% url 'ahnata:articles' %}">Produits</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="{% url 'ahnata:descript' %}">Qui Sommes-Nous ?</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="{% url 'ahnata:post' %}">Notre Forum</a>
+                </li>
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
+            </div>
+          </nav>
+      </div>
+        <main class="text">
+           {% block body %}
+           {% endblock %}
+        </main> 
+      <div id="aside">
+          <h2 class="present">A PROPOS DE L'AUTEUR</h2>
+          <p id="logo"><img src="{% static 'ahnata/images/pa1.png' %}" class="rounded" alt="ma_photo"></p><br />
+          <p class="descp">Pathé LY <br/> Mathematicien de Formation<br/> Autodidacte en Machine Learning<br/> Email: foulaly2018@gmail.com</p>
+          <p><img src="{% static 'ahnata/images/facebook.png' %}" alt="Facebook"/>    <img src="{% static 'ahnata/images/twitter.png' %}" alt="Twitter" />
+            <img src="{% static 'ahnata/images/vimeo.png' %}" alt="Vimeo" />
+            <img src="{% static 'ahnata/images/flickr.png' %}" alt="Flickr" />
+            <img src="{% static 'ahnata/images/rss.png' %}" alt="RSS" /></p>
+      </div>
+    </div>
+    <div class="footer">
+         <p class="footer-copyright text-center py-3">&copy; 2017-2018 Totobhe Etoile</p>
+         <ul class="foot">
+           <li>Pays<br><p>Guinée Conakry</p></li>
+           <li>Ville<br><p>Conakry</p></li>
+           <li>adresse<br><p>Marché Madina au CCF, boutique N°35</p></li>
+         </ul>
+    </div> 
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'ahnata/base_visit.html' %}
+{% block title %} Details de la boutique {% endblock %}
+
+{% block body %}
+    <h2 class="pres">{{ boutique.nom }}</h2>	
+      <p class="pres">Detenu par {{ boutique.stock_gerant }} Créer le {{   boutique.date_create|date:"DATE_FORMAT" }}, De categorie <strong> {{ boutique.categorie}}</strong></p>
+      <p><a href="{% url 'ahnata:detail' boutique.id %}"></a></p> 
+    
+    {% if all_articles %}
+      <h2>Here all the articles </h2>
+      <ul>{% for article in all_articles %}
+      	 <div class="item">
+             <a href="{{ article.get_absolute_url }}">{{article.nom}}</a><br> ${{article.prix}}
+         </div>    
+         {% endfor %}
+      </ul>
+   {% else %}	
+       <h3> No Article to display </h3>
+   {% endif %}
+      <p style="margin-left: 5px"><a href="{% url 'ahnata:layout' %}">Precedent</a></p>
+{% endblock %}

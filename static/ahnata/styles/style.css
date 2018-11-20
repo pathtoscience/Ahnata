@@ -1,0 +1,98 @@
+html, body{
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	}
+#wrapper{
+	min-height: 100%;
+	position: relative;
+}	
+#header{
+	height: 50px;
+	padding: 10px;
+	text-align: center;
+}
+#content{
+	padding-bottom: 70px;
+	text-align: center;
+}
+#slog{
+	position: absolute;
+	left: 225px;
+	top: 60px;
+	font-style: italic;
+	font-size: x-small;
+}
+.navbar{
+	border-radius: 0;
+ }
+.navbar-brand{
+	font-family: 'Satisfy', cursive;
+}
+.connect{
+	position: absolute; 
+	right: 90px;
+	top: 30px;
+}
+.inscript{
+	position: absolute; 
+	right: 250px;
+	top: 30px;
+}
+#article, #aside
+{
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+}
+#article{
+	width: 625px;
+	position: absolute;
+	margin-right: 15px;
+	height: 425px;
+	top: 150px;
+}
+#article h4,p{
+     color: black;
+} 
+#article h2, .pres{
+     text-align: center;
+}
+.text{
+	position: relative;
+	top: 450px;
+}
+.descp, #logo{
+	text-align: center;
+}
+#logo img{
+	border: 1px solid #181818;
+}
+.footer { 
+   height: 70px
+   width: 200px;
+   bottom: 0px;
+   margin-top: 255px;
+   background-color: #F5F5F5;
+   text-align: center;
+   color: black;  
+   position: relative;
+}
+
+.foot {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}
+.boutiq1 {
+    float: left;
+    width: 150px;
+    border: 1px solid black;
+}
+.detboutiq{
+    margin-left: 170px;
+    border: 1px solid blue;
+}

@@ -1,0 +1,16 @@
+{% extends 'ahnata/base_visit.html' %}
+
+{% block body %}
+
+<h1>Bien Venue !</h1>
+<div>
+   <form  method="post" class="form-control" action="{% url 'ahnata:login' %}" >
+	 {% csrf_token %}	
+	 {{form.as_p}}
+	  <button type="submit" class="btn btn-success">Login</buttn>
+   </form>
+ </div>
+ <div class="panel-footer">
+    Vous n'etes pas encore incrit ? <a href="{% url 'ahnata:register' %}">Cliquez ici</a> pour vous inscrire.
+    </div>
+{% endblock %}

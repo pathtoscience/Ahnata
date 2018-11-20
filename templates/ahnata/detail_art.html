@@ -1,0 +1,35 @@
+{% extends 'ahnata/base_visit.html' %}
+
+{% block content %}
+   <h1>{{ article.nom }}</h1>	
+      <p>de prix  
+   <ul><h4>{{ article.prix }}</h4>
+       <h4>Créer le {{ article.date_ajout|date:"DATE_FORMAT" }}</h4>
+       <h4>{{ article.description|linebreaks }}</h4>
+   </ul>
+   <p><a href="{% url 'ahnata:detail_art' article.id %}">lire la suite </a></p>
+   <div id="sidebar">
+   	   <h3>Categories</h3>
+   	   <ul>
+   	   	   <li {% if not category %} class="selected"{% endif %}>
+   	   	   	  <a href="{% url 'ahnata:list' %}">All</a>
+   	   	   </li>
+   	   	   {% for c in categories %}
+   	   	      <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+   	   	      	<a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+   	   	      </li>
+   	   	   {% endfor %}   
+   	   </ul>
+   </div>  
+    <div id="main" class="poruct_list">
+    	<h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+    	{% for product in Products %}
+    	    <div class="item">
+    	    	<a href = "{{product.get_absolute_url }}">
+    	    		<img src="{% if product.image %}{{ product.image.url }}{% else %}{% static '/' %}">
+    	    	</a>
+    	    	<a href="{{ product.get_absolute_url }}">{{product.name }}</a><br>
+    	    	${{ product.prix }}
+    	    </div>		
+    </div> 
+{% endblock %}   
