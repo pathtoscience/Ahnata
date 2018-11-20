@@ -1,0 +1,13 @@
+{% extends 'ahnata/base_visit.html' %}
+
+{% block body %}
+
+    <h2 style="text-align: center;">Nouveau Post</h2>
+    <form method="POST" class="form-control" action="{% url 'ahnata:post' %}">
+      {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary" value="Envoyez" />
+    </form>
+    <h2>{{ text }}</h2>
+   
+{% endblock %}

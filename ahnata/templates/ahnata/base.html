@@ -1,0 +1,153 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  	<title>{% block title %}Page d'accueil {% endblock %} </title>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <!-- end of the favicon code -->
+	  <meta charset="utf-8">
+	  <meta name="viewmport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- load the path to your static files -->
+    <link rel="icon" href="{% static 'ahnata/favico/favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'ahnata/css/bootstrap.min.css' %}" />
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" type="text/css" href="{% static 'ahnata/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ahnata/css/album.css' %}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'ahnata/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<header>
+  <div>
+    <img src="{% static 'ahnata/images/nata6.png' %}" alt="mon logo">
+    <p id="slog">Faire Mieux que tous</p>
+  </div>
+  {% if user.is_authenticated %}
+     <p style="color: blue; position: relative; text-align: center; margin-top: 0px;">Hi {{user.username}} !</p>
+    <nav>
+     <ul class="inscript"><a href="{% url 'ahnata:logout' %}"><button type="button" class="btn">SE DECONNECTER</button></a></ul></nav>
+  {% else %}
+    <nav>
+     <ul class="inscript"><a href="{% url 'ahnata:login' %}"><button type="button" class="btn">SE CONNECTER</button></a></ul></nav>
+  {% endif %}   
+  <nav>
+     <ul class="connect"><a href="{% url 'ahnata:contact'  %} "><button type="button" class="btn btn-info">ECRIVEZ-NOUS !</button></a>
+     </ul>
+  </nav>
+</header>  
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <a class="navbar-brand" href="{% url 'ahnata:index' %}">Accueil</a>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link disabled" href="{% url 'ahnata:articles' %}">Produits</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="{% url 'ahnata:descript' %}">Qui Sommes-Nous ?</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="{% url 'ahnata:post' %}">Notre Forum</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+<section>
+<article>
+  <div id="demo" class="carousel slide" data-ride="carousel">
+
+    <!-- Indicators -->
+     <ul class="carousel-indicators">
+       <li data-target="#demo" data-slide-to="0" class="active"></li>
+       <li data-target="#demo" data-slide-to="1"></li>
+       <li data-target="#demo" data-slide-to="2"></li>
+     </ul>
+
+  <!-- The slideshow -->
+     <div class="carousel-inner">
+       <div class="carousel-item active"><img src="{% static 'ahnata/images/prise.png' %}" class="img-thumbnail" alt="Los Angeles" />
+        <div class="carousel-caption">
+            <h4>Stabilisateur</h4>
+              <p>Les ampoules, element incontournable du courant qui vous empechez de vous perdre la nuit .</p>
+        </div>
+       </div>
+       <div class="carousel-item"><img src="{% static 'ahnata/images/file.jpg'%}" class="mx-auto d-block"" alt="Chicago" />
+        <div class="carousel-caption">
+            <h4>File Electrique</h4>
+              <p>Les ampoules, element incontournable du courant qui vous empechez de vous perdre la nuit .</p>
+            </div>
+       </div>
+       <div class="carousel-item"><img src="{% static 'ahnata/images/torob.jpg' %}" class="img-thumbnail" alt="New York" />
+        <div class="carousel-caption">
+            <h4>Ampoule</h4>
+              <p>Les ampoules, element incontournable du courant qui vous empechez de vous perdre la nuit .</p>
+            </div>
+       </div>
+     </div>
+
+  <!-- Left and right controls -->
+     <a class="carousel-control-prev" href="#demo" data-slide="prev">
+       <span class="carousel-control-prev-icon"></span>
+     </a>
+     <a class="carousel-control-next" href="#demo" data-slide="next">
+      <span class="carousel-control-next-icon"></span>
+     </a>
+ </div>
+<main>
+ {% block body %}
+ {% endblock %}
+</main>
+</article>  
+  <aside>
+     <h2 class="present">A PROPOS DE L'AUTEUR</h2>
+     <p id="logo"><img src="{% static 'ahnata/images/pa1.png' %}" class="rounded" alt="ma_photo"></p><br />
+     <p class="descp">Pathé LY <br/> Mathematicien de Formation<br/> Autodidacte en Machine Learning<br/> Email: foulaly2018@gmail.com</p>
+     <p><img src="{% static 'ahnata/images/facebook.png' %}" alt="Facebook"
+/><img src="{% static 'ahnata/images/twitter.png' %}" alt="Twitter" /><img
+src="{% static 'ahnata/images/vimeo.png' %}" alt="Vimeo" /><img src="{% static 'ahnata/images/flickr.png' %}"
+alt="Flickr" /><img src="{% static 'ahnata/images/rss.png' %}" alt="RSS" /></p>
+  </aside>
+</section>
+
+<footer>
+  <div class="footer">
+    <p>&copy; 2017-2018 Totobhe Etoile</p>
+    <ul class="foot">
+       <li>Pays<br><p>Guinée Conakry</p></li>
+       <li>Ville<br><p>Conakry</p></li>
+       <li>adresse<br><p>Marché Madina au CCF, boutique N°35</p></li>
+    </ul>
+  </div>
+</footer>
+ <!-- Bootstrap core JavaScript
+    ================================================== -->
+ <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/vendor/holder.min.js"></script>
+</body>
+</html>
