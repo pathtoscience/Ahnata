@@ -1,4 +1,4 @@
-html, body{
+html{
 	padding: 0;
 	margin: 0;
 	height: 100%;
@@ -39,25 +39,6 @@ html, body{
 	right: 250px;
 	top: 30px;
 }
-#article, #aside
-{
-	display: inline-block;
-	vertical-align: top;
-	text-align: center;
-}
-#article{
-	width: 625px;
-	position: absolute;
-	margin-right: 15px;
-	height: 425px;
-	top: 150px;
-}
-#article h4,p{
-     color: black;
-} 
-#article h2, .pres{
-     text-align: center;
-}
 .text{
 	position: relative;
 	top: 450px;
@@ -67,25 +48,6 @@ html, body{
 }
 #logo img{
 	border: 1px solid #181818;
-}
-.footer { 
-   height: 70px
-   width: 200px;
-   bottom: 0px;
-   margin-top: 255px;
-   background-color: #F5F5F5;
-   text-align: center;
-   color: black;  
-   position: relative;
-}
-
-.foot {
-    flex: 1;
-    display: flex;
-    justify-content: space-around;
-    margin: 0;
-    padding-left: 0;
-    list-style: none;
 }
 .boutiq1 {
     float: left;

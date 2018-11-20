@@ -1,0 +1,23 @@
+body{
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+#article{
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+}
+#article{
+	width: 625px;
+	position: absolute;
+	margin-right: 15px;
+	height: 425px;
+	top: 150px;
+}
+#article h4,p{
+     color: black;
+} 
+#article h2, .pres{
+     text-align: center;
+}

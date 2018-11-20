@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'ahnata/bootstrap4/bootstrap.min.css' %}" />
     <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'/>
     <link rel="stylesheet" type="text/css" href="{% static 'ahnata/styles/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ahnata/styles/style2.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'ahnata/styles/style3.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'ahnata/styles/album.css' %}" />
 </head>
 <body>
@@ -16,14 +18,14 @@
         <p id="slog">Faire Mieux que tous</p>
       </div>  
       <div id="header">
-        <!--{% if user.is_authenticated %}
+       {% if user.is_authenticated %}
           <p style="color: green; position: absolute; margin-left: 600px; top: 0px; margin-top: 0;">Hi {{user.username}} !</p>
           <nav>
             <ul class="inscript"><a href="{% url 'ahnata:logout' %}"><button type="button" class="btn">SE DECONNECTER</button></a></ul></nav>
-            {% else %}-->
+            {% else %}
           <nav>
             <ul class="inscript"><a href="{% url 'ahnata:login' %}"><button type="button" class="btn">SE CONNECTER</button></a></ul></nav>
-           <!-- {% endif %}   -->
+           {% endif %}   
           <nav>
             <ul class="connect"><a href="{% url 'ahnata:contact'  %} "><button type="button" class="btn btn-info">ECRIVEZ-NOUS !</button></a>
             </ul>
